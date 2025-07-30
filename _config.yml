@@ -1,14 +1,39 @@
-title: Mine Oppskrifter
-description: En oversikt over oppskrifter
+title: Veganske Oppskrifter
+description: Deilige og næringsrike veganske oppskrifter for alle måltider
 baseurl: "/food"
 url: "https://zagnabora.github.io"
 remote_theme: Xipit/jekyll-theme-recipe
 
+# Collections
 collections:
   recipes:
     output: true
+    permalink: /:collection/:name/
+
+# Defaults
 defaults:
   - scope:
       path: "_recipes"
+      type: "recipes"
     values:
       layout: recipe
+
+# Kategorier for veganske oppskrifter
+recipe_categories:
+  - { name: "Frokost", slug: "frokost" }
+  - { name: "Lunsj", slug: "lunsj" }
+  - { name: "Middag", slug: "middag" }
+  - { name: "Dessert", slug: "dessert" }
+  - { name: "Snacks", slug: "snacks" }
+  - { name: "Smoothies", slug: "smoothies" }
+  - { name: "Bakevarer", slug: "bakevarer" }
+  - { name: "Proteiner", slug: "proteiner" }
+
+# Plugin
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
