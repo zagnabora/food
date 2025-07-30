@@ -1,0 +1,347 @@
+---
+layout: none
+---
+
+<!DOCTYPE html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ page.title }} - Utskrift</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        font-size: 11pt;
+        line-height: 1.3;
+        color: #333;
+        background: white;
+      }
+
+      .print-container {
+        width: 210mm;
+        height: 297mm;
+        padding: 0;
+        page-break-after: avoid;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Første halvdel - forsiden */
+      .front-page {
+        width: 100%;
+        height: 148.5mm;
+        padding: 8mm;
+        border-bottom: 1px dashed #ccc;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+
+      /* Andre halvdel - baksiden */
+      .back-page {
+        width: 100%;
+        height: 148.5mm;
+        padding: 8mm;
+        display: flex;
+        flex-direction: column;
+        transform: rotate(180deg);
+      }
+
+      .recipe-title {
+        font-size: 18pt;
+        font-weight: bold;
+        margin-bottom: 4mm;
+        color: #2c5530;
+        text-align: center;
+        border-bottom: 2px solid #2c5530;
+        padding-bottom: 2mm;
+      }
+
+      .recipe-meta-print {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 4mm;
+        font-size: 9pt;
+        color: #666;
+        text-align: center;
+      }
+
+      .meta-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .meta-label {
+        font-weight: bold;
+        margin-bottom: 1mm;
+      }
+
+      .ingredients-section {
+        flex: 1;
+        margin-bottom: 4mm;
+      }
+
+      .ingredients-title {
+        font-size: 14pt;
+        font-weight: bold;
+        margin-bottom: 3mm;
+        color: #2c5530;
+        border-bottom: 1px solid #2c5530;
+        padding-bottom: 1mm;
+      }
+
+      .ingredients-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .ingredients-list li {
+        margin-bottom: 1.5mm;
+        padding-left: 4mm;
+        position: relative;
+      }
+
+      .ingredients-list li:before {
+        content: "🌱";
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
+      .qr-section {
+        position: absolute;
+        bottom: 8mm;
+        right: 8mm;
+        text-align: center;
+        width: 25mm;
+      }
+
+      .qr-code {
+        width: 20mm;
+        height: 20mm;
+        background: #f0f0f0;
+        border: 1px solid #ddd;
+        margin-bottom: 2mm;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 8pt;
+      }
+
+      .qr-text {
+        font-size: 7pt;
+        color: #666;
+      }
+
+      .image-placeholder {
+        width: 40mm;
+        height: 30mm;
+        background: #f8f8f8;
+        border: 2px dashed #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 4mm auto;
+        color: #999;
+        font-size: 8pt;
+        text-align: center;
+      }
+
+      .back-content {
+        text-align: center;
+        padding: 20mm;
+        color: #666;
+      }
+
+      .vegan-info {
+        margin-bottom: 6mm;
+      }
+
+      .vegan-logo {
+        font-size: 24pt;
+        color: #2c5530;
+        margin-bottom: 3mm;
+      }
+
+      .website-info {
+        font-size: 9pt;
+        margin-bottom: 6mm;
+      }
+
+      .sustainability-note {
+        font-size: 8pt;
+        font-style: italic;
+        line-height: 1.4;
+        color: #777;
+      }
+
+      .fold-instruction {
+        position: absolute;
+        top: 50%;
+        left: 2mm;
+        font-size: 6pt;
+        color: #999;
+        writing-mode: vertical-lr;
+        text-orientation: mixed;
+      }
+
+      @media print {
+        body {
+          -webkit-print-color-adjust: exact;
+          color-adjust: exact;
+        }
+
+        .print-container {
+          width: 100%;
+          height: 100vh;
+        }
+
+        .no-print {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="print-container">
+      <!-- Forside -->
+      <div class="front-page">
+        <h1 class="recipe-title">{{ page.title }}</h1>
+
+        <div class="recipe-meta-print">
+          {% if page.tid %}
+          <div class="meta-item">
+            <div class="meta-label">Tid</div>
+            <div>{{ page.tid }}</div>
+          </div>
+          {% endif %} {% if page.portion %}
+          <div class="meta-item">
+            <div class="meta-label">Porsjoner</div>
+            <div>{{ page.portion }}</div>
+          </div>
+          {% endif %} {% if page.difficulty %}
+          <div class="meta-item">
+            <div class="meta-label">Vanskelighet</div>
+            <div>{{ page.difficulty }}</div>
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="image-placeholder">
+          Legg til bilde av<br />den ferdige retten
+        </div>
+
+        <div class="ingredients-section">
+          <h2 class="ingredients-title">Ingredienser</h2>
+          <ul class="ingredients-list" id="ingredients-list">
+            <!-- Ingredienser vil bli fylt ut av JavaScript -->
+          </ul>
+        </div>
+
+        <div class="qr-section">
+          <div class="qr-code" id="qr-code">QR</div>
+          <div class="qr-text">Scan for full oppskrift</div>
+        </div>
+
+        <div class="fold-instruction">↓ BRETT HER ↓</div>
+      </div>
+
+      <!-- Bakside -->
+      <div class="back-page">
+        <div class="back-content">
+          <div class="vegan-info">
+            <div class="vegan-logo">🌱</div>
+            <h2 style="font-size: 14pt; color: #2c5530; margin-bottom: 3mm">
+              100% Vegansk
+            </h2>
+            <p style="font-size: 9pt">Denne oppskriften er helt plantebasert</p>
+          </div>
+
+          <div class="website-info">
+            <p><strong>Veganske Oppskrifter</strong></p>
+            <p>Deilige og næringsrike veganske oppskrifter</p>
+            <p style="margin-top: 3mm; font-size: 8pt">
+              {{ site.url }}{{ site.baseurl }}
+            </p>
+          </div>
+
+          <div class="sustainability-note">
+            <p><strong>Miljøvennlig mat</strong></p>
+            <p>
+              Ved å velge plantebasert mat bidrar du til en mer bærekraftig
+              fremtid. Vegansk mat reduserer CO2-avtrykket ditt og er snill mot
+              både dyr og miljø.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Ekstraherer ingredienser fra oppskriftens innhold
+      function extractIngredients() {
+        const content = `{{ content | strip_html | escape }}`;
+        const lines = content.split("\n");
+        const ingredients = [];
+        let inIngredientsSection = false;
+
+        for (let line of lines) {
+          line = line.trim();
+          if (line.toLowerCase().includes("ingrediens") && line.includes("#")) {
+            inIngredientsSection = true;
+            continue;
+          }
+          if (line.includes("#") && inIngredientsSection) {
+            break;
+          }
+          if (inIngredientsSection && line.startsWith("-")) {
+            ingredients.push(line.substring(1).trim());
+          }
+        }
+
+        return ingredients.slice(0, 15); // Maksimalt 15 ingredienser for å passe på siden
+      }
+
+      // Fyller ut ingredienslisten
+      function populateIngredients() {
+        const ingredients = extractIngredients();
+        const list = document.getElementById("ingredients-list");
+
+        ingredients.forEach((ingredient) => {
+          const li = document.createElement("li");
+          li.textContent = ingredient;
+          list.appendChild(li);
+        });
+      }
+
+      // Genererer QR-kode URL (bruker qr-server.com som gratis tjeneste)
+      function generateQRCode() {
+        const currentUrl = window.location.href.replace("/print/", "/");
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=${encodeURIComponent(
+          currentUrl
+        )}`;
+
+        const qrElement = document.getElementById("qr-code");
+        qrElement.innerHTML = `<img src="${qrUrl}" alt="QR Code" style="width: 18mm; height: 18mm;">`;
+      }
+
+      // Kjører når siden lastes
+      document.addEventListener("DOMContentLoaded", function () {
+        populateIngredients();
+        generateQRCode();
+      });
+    </script>
+  </body>
+</html>
