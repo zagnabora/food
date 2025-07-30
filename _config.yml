@@ -1,5 +1,14 @@
 title: Mine Oppskrifter
-description: En samling oppskrifter med QR-koder
-theme: minima
+description: En oversikt over oppskrifter
 baseurl: "/food"
 url: "https://zagnabora.github.io"
+remote_theme: Xipit/jekyll-theme-recipe
+
+collections:
+  recipes:
+    output: true
+defaults:
+  - scope:
+      path: "_recipes"
+    values:
+      layout: recipe

@@ -1,9 +1,10 @@
 ---
-layout: default
-title: Lasagne
+title: Wok
+category: Middag
+tid: 60 min
 ---
 
-# Lasagne
+# Wok
 
 ## Ingredienser
 - 400g protein
